@@ -1,4 +1,4 @@
-# chat_ajax
+# VueJs Chat
 
 > A Vue.js project
 
