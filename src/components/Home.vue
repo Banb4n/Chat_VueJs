@@ -24,12 +24,12 @@
             </div>
             <div class="new">
             <hr />
-                <form @submit.prevent = "Enregistrer()">
+                <form @keyup.13= "Enregistrer()">
                     <div class="form-group">
                         <input v-model="newMessage.author" type="text" class="form-control" id="author" placeholder="@Author" required>
                     </div>
                     <div class="form-group">
-                        <textarea v-model="newMessage.content" rows="4" class="form-control" name="content" id="content" placeholder="message" required>
+                        <textarea  v-model="newMessage.content" rows="4" class="form-control" name="content" id="content" placeholder="message" required>
                         </textarea>             
                     </div>
                     <button type="submit" class="btn">Envoyer</button>
@@ -46,7 +46,7 @@
                         <div class="panel col-xs-10 col-xs-offset-1">
                             <div class="user"><i class="fa fa-user-circle" aria-hidden="true"></i> | {{ message.author }}</div>
                             <p class="content">{{ message.content }}</p>
-                                <button><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                <button class="btn" @click= "deleted()"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                 <p class="date">{{ message.date }} - {{ message.time }}</p>
                         </div>
                     </div>
@@ -85,6 +85,12 @@ export default {
   },
   created() {
      axios.get('http://localhost:3000/messages').then((resultat) => this.messages = resultat.data);
+  }, 
+  deleted() {
+      axios.delete('http://localhost:3000/messages', this.messages);
+  },
+  ready() {
+      alert('Hello');
   }
 }
 </script>
@@ -208,5 +214,14 @@ li {
 .btn {
     background-color: rgba(0,0,0,0.1);
     border: 1px solid lightgrey;
+}
+
+.btn:hover {
+    color: #0f97e2;
+    border-color: #0f97e2;
+}
+.btn:click {
+    color: grey;
+    border-color: grey;
 }
 </style>
